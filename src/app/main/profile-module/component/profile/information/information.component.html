@@ -1,0 +1,27 @@
+<div class="main">
+
+    <div class="row">
+        <div class="col-4 col-md-4">
+            Tu informaci&oacute;n
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4 col-md-4">
+            Completa la siguiente informaci&oacute;n para completar tu perfil
+        </div>
+    </div>
+    
+    <div *ngIf="container">
+        <ng-template ngFor let-input [ngForOf]="container.grid" let-i="index">
+            <div class="row">
+                <mat-form-field *ngIf="input.isFormField">
+                    <mat-label>{{ input.label }}</mat-label>
+    
+                    <input matInput [id]="input.key" [type]="input.type">
+                </mat-form-field>
+                
+            </div>
+        </ng-template>
+    </div>
+
+</div>

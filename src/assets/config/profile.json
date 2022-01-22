@@ -1,0 +1,48 @@
+{
+    "page": [
+        {
+            "forms": [
+                {
+                    "name": "fmProfile",
+                    "containers": [
+                        {
+                            "name": "subtitle",
+                            "columns": "1",
+                            "rowClass": {},
+                            "controls": [
+                                {
+                                    "name": "hello",
+                                    "type": "LINK",
+                                    "label": "",
+                                    "value": "",
+                                    "icon": "arrow_left",
+                                    "validation": {},
+                                    "show": true,
+                                    "classColumn": "col-md-2 col-2"
+                                },
+                                {
+                                    "name": "hello",
+                                    "type": "TEXTPLANE",
+                                    "label": "",
+                                    "value": "<span>Hola! Configuremos tu perfil</span>",
+                                    "validation": {},
+                                    "show": true,
+                                    "classColumn": "col-md-12 col-12"
+                                },
+                                {
+                                    "name": "hello",
+                                    "type": "TEXTPLANE",
+                                    "label": "",
+                                    "value": "<span>Hola! Configuremos tu perfil</span>",
+                                    "validation": {},
+                                    "show": true,
+                                    "classColumn": "col-md-12 col-12"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
