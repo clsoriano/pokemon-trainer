@@ -1,27 +1,91 @@
-<div class="main">
+<div *ngIf="showForm | async" [formGroup]="formGroup">
+        
+    <ng-template ngFor let-container [ngForOf]="form.containers" let-i="index">
+        <div class="main container" [ngClass]="container.class">
+            
+            <ng-template ngFor let-row [ngForOf]="container.rows" let-i="index">
+                <div [ngClass]="row.class">
+                    
+                    <ng-template ngFor let-control [ngForOf]="row.columns" let-i="index">
+                        <div [ngClass]="control.classColumn">
+                            
+                            <!-- THEN IS POSSIBLE MOVE ALL CONFIGURATION IN COMPONENT COMPILE A DEMAND -->
 
-    <div class="row">
-        <div class="col-4 col-md-4">
-            Tu informaci&oacute;n
+                            <mat-form-field *ngIf="control.formField && control.show" 
+                                [appearance]="control.appearance"
+                                [ngStyle]="control.style"
+                                [ngClass]="control.class">
+                                <mat-label>{{ control.label }}</mat-label>
+
+                                <!-- CONDITION -->
+                                <div *ngIf="control.type == 'DATEPICKER' then datepicker; else input"></div>
+
+                                <!-- TYPE DATEPICKER -->
+                                <ng-template #datepicker>
+                                    <input matInput [id]="control.key"
+                                        [matDatepicker]="picker"
+                                        [readonly]="control.readonly"
+                                        (click)="picker.open()"
+                                        [formControlName]="control.key">
+                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker touchUi></mat-datepicker>
+                                </ng-template>
+
+                                <!-- TYPE INPUT -->
+                                <ng-template #input>
+                                    <div *ngIf="control.type == 'INPUT' else matchip">
+                                        <input matInput [id]="control.key" 
+                                            [type]="control.type"
+                                            [formControlName]="control.key">
+                                    </div>
+                                </ng-template>
+
+                                <ng-template #matchip>
+                                    <mat-chip-list #chipList>
+                                        <mat-chip *ngFor="let hobbie of hobbies"
+                                            (removed)="removeHobbie(hobbie)">
+                                            {{ hobbie }}
+                                            <button matChipRemove>
+                                                <mat-icon>cancel</mat-icon>
+                                            </button>
+                                        </mat-chip>
+                                        <input
+                                            [placeholder]="control.placeholder"
+                                            #hobbieInput
+                                            [formControlName]="control.key"
+                                            [matChipInputFor]="chipList"
+                                            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                            (matChipInputTokenEnd)="addHobbie($event, control.key)">
+                                    </mat-chip-list>
+                                </ng-template>
+                                
+                            </mat-form-field>
+                            
+                            <!-- TYPE TEXTPLANE -->
+                            <div *ngIf="control.type == 'TEXTPLANE' && control.show" 
+                                [ngClass]="control.class"
+                                [ngStyle]="control.style">
+                                <span>{{ control.value }}</span>
+                            </div>
+
+                            <!-- TYPE BUTTON -->
+                            <div *ngIf="control.type == 'BUTTON' && control.show">
+                                <button mat-raised-button 
+                                    [color]="control.disabled ? 'none' : 'primary'"
+                                    [ngClass]="control.class"
+                                    [ngStyle]="control.style"
+                                    [disabled]="control.disabled">
+                                    {{ control.value }}
+                                </button>
+                            </div>
+
+                        </div>
+                    </ng-template>
+
+                </div>
+            </ng-template>
+
         </div>
-    </div>
-    <div class="row">
-        <div class="col-4 col-md-4">
-            Completa la siguiente informaci&oacute;n para completar tu perfil
-        </div>
-    </div>
-    
-    <div *ngIf="container">
-        <ng-template ngFor let-input [ngForOf]="container.grid" let-i="index">
-            <div class="row">
-                <mat-form-field *ngIf="input.isFormField">
-                    <mat-label>{{ input.label }}</mat-label>
-    
-                    <input matInput [id]="input.key" [type]="input.type">
-                </mat-form-field>
-                
-            </div>
-        </ng-template>
-    </div>
+    </ng-template>
 
 </div>

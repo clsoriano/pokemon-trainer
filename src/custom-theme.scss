@@ -12,8 +12,63 @@
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$pokemon-trainer-primary: mat.define-palette(mat.$indigo-palette);
-$pokemon-trainer-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+$poke-primary : (
+  900: #185a7d,
+  800: #23799e,
+  700: #258ab1,
+  600: #309dc3,
+  500: #01426A,
+  400: #4bb6d5,
+  300: #64c3da,
+  200: #8ad4e4,
+  100: #b6e5ee,
+  50: #e2f5f8,
+  contrast: (
+    50: rgba(black, 0.87),
+    100: rgba(black, 0.87),
+    200: rgba(black, 0.87),
+    300: white,
+    400: white,
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white
+  )
+);
+
+$poke-secundary : (
+  900: #01426a,
+  800: #115d89,
+  700: #1c6d9a,
+  600: #297eaa,
+  500: #358ab5,
+  400: #4f9abe,
+  300: #6baac7,
+  200: #90c2d7,
+  100: #020202,
+  50: #e3f0f4,
+  A400: #4f9abe,
+  A200: #90c2d7,
+  A100: #020202,
+  contrast: (
+    50: rgba(black, 0.87),
+    100: rgba(black, 0.87),
+    200: rgba(black, 0.87),
+    300: white,
+    400: white,
+    500: white,
+    600: white,
+    700: white,
+    800: white,
+    900: white
+  )
+);
+
+
+$pokemon-trainer-primary: mat.define-palette($poke-primary);
+$pokemon-trainer-accent: mat.define-palette($poke-secundary, A200, A100, A400);
 
 // The warn palette is optional (defaults to red).
 $pokemon-trainer-warn: mat.define-palette(mat.$red-palette);
@@ -35,4 +90,41 @@ $pokemon-trainer-theme: mat.define-light-theme((
 
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; font-family: Poppins, "Helvetica Neue", sans-serif; }
+
+
+// stablish style for formField
+
+.mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label, .mat-form-field-appearance-outline.mat-form-field-can-float .mat-input-server:focus + .mat-form-field-label-wrapper .mat-form-field-label {
+  font-weight: 700;
+  
+}
+
+.mat-form-field-appearance-outline .mat-form-field-flex {
+  min-height: 57.69px!important;
+  max-height: 57.69px!important;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-infix {
+  padding: 0.5em 0 0.5em 0 !important;
+}
+
+.mat-form-field-infix {
+  border-top: 0.5em solid transparent!important;
+  border-left: 10px solid transparent!important;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-outline-gap {
+  border-radius: 1px!important;
+}
+
+.mat-form-field-appearance-outline  .mat-form-field-outline-start {
+  border-radius: 10px 0px 0px 10px!important;
+  min-width: 10px !important;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-outline-end {
+  border-radius: 0px 10px 10px 0px!important;
+  min-width: 10px !important;
+}
+

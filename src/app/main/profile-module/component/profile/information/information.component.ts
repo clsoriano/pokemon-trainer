@@ -1,82 +1,72 @@
-import { PlatformLocation } from '@angular/common';
+import { PokeDataService } from './../../../../../global/services/poke-data.service';
 import { Component, OnInit } from '@angular/core';
-import { environment } from 'src/environments/environment';
 import { HttpClientService } from '../../../../../global/services/http-client.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import {COMMA, ENTER} from '@angular/cdk/keycodes';
+import { BehaviorSubject } from 'rxjs';
+import { ComponentBuild } from 'src/app/global/models/component.build';
+import {MatChipInputEvent} from '@angular/material/chips';
 
 @Component({
   selector: 'app-information',
   templateUrl: './information.component.html',
   styleUrls: ['./information.component.sass']
 })
-export class InformationComponent implements OnInit {
-
-  private baseHref: string;
-  container: any;
+export class InformationComponent extends ComponentBuild implements OnInit {
+  
+  separatorKeysCodes: number[] = [ENTER, COMMA];
+  showForm: BehaviorSubject<Boolean>;
+  formGroup: FormGroup;
+  form: any;
+  hobbies: string[] = [];
 
   constructor(
     private httpClientService: HttpClientService,
-    private platformLocation: PlatformLocation
-  ) { 
-    this.baseHref = environment.production ? this.platformLocation.getBaseHrefFromDOM() : '';
+    private pokeDataService: PokeDataService,
+    private formBuilder: FormBuilder
+  ) {
+    super();
+    this.showForm = new BehaviorSubject<Boolean>(false);
+    this.formGroup = this.formBuilder.group({});
   }
 
   ngOnInit(): void {
     // loading all inputs in template
-    this.loadConfiguration();
+    this.pokeDataService.getFormData().subscribe(
+      (value: any) => {
+        this.form = value.forms.find((x:any) => x.name == 'fmProfile');
+
+        if (this.form) this.formGroup = this.loadFormControls(this.form);
+
+        this.showForm.next(true);
+
+      }
+    )
 
     // call service needed
     // this.httpClientService.requestMapping(``, {}, 'post', {});
 
   }
 
-  loadConfiguration() {
-    const fileConfig = `${this.baseHref}/assets/config/profile.json`;
+  addHobbie(event: MatChipInputEvent, key: string){
+    const value = (event.value || '').trim();
 
-    this.httpClientService.getConfig(fileConfig).subscribe(
-      config => {
-        console.log(config);
-      }
-    );
+    if (value) {
+      this.hobbies.push(value);
+    }
+
+    event.chipInput!.clear();
+
+    this.formGroup.get(key)?.setValue(null);
 
   }
 
-  /**
-   * imposible introduce
-   * be friendly and to know
-   * introduce u selft with lunck
-   * small talk, hard, stress, boring, uncontrobal, polite. convers important
-   * 
-   * better relashionship, enjoy conversation with u coworkers
-   * pathway learning new about coworker, discover, having fun
-   * introduce to new team member
-   * 
-   * soccer, how better, messi or ronaldo, why the barcelona its bad
-   * 
-   * start with a complement and connect
-   * strategy, where bougth somethings
-   * learn about you
-   * store u shope at
-   * to find those initial connections, reali polite
-   * 
-   * 
-   * 
-   * get conversation flowing.
-   * how long, how was u weekend.
-   * commons questions....
-   * it is hard to conversation to cut answer
-   * depth question....
-   * introduce and do a question
-   * about work like here... find wonderful connection, about city live...
-   * what kind to do...? lear about something new with ur coworkers
-   * 
-   * Ask for advice, some others opinions
-   * buying a house of differents thing outside office..
-   * appropiate topics
-   * conversation going
-   * make conversation more easy
-   * 
-   * 
-   * 
-   */
+  removeHobbie(hobbie: string): void {
+    const index = this.hobbies.indexOf(hobbie);
+
+    if (index >= 0) {
+      this.hobbies.splice(index, 1);
+    }
+  }
 
 }

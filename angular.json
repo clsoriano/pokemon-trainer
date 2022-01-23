@@ -32,7 +32,7 @@
             ],
             "styles": [
               "src/custom-theme.scss",
-              "src/assets/css/bootstrap.min.css",
+              "src/assets/css/bootstrap-grid.min.css",
               "src/styles.sass"
             ],
             "scripts": []
@@ -101,7 +101,7 @@
               "src/assets"
             ],
             "styles": [
-              "src/assets/css/bootstrap.min.css",
+              "src/assets/css/bootstrap-grid.min.css",
               "src/styles.sass"
             ],
             "scripts": []

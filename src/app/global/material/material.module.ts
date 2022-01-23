@@ -5,6 +5,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { ScrollingModule } from "@angular/cdk/scrolling";
+import { MatButtonModule } from '@angular/material/button';
+import { MatChipsModule } from '@angular/material/chips';
 
 @NgModule({
     exports: [
@@ -13,7 +15,9 @@ import { ScrollingModule } from "@angular/cdk/scrolling";
         MatIconModule,
         MatSelectModule,
         ScrollingModule,
-        MatDatepickerModule
+        MatDatepickerModule,
+        MatButtonModule,
+        MatChipsModule
     ]
 })
 export class MaterialModule {

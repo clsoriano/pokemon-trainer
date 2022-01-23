@@ -1,42 +1,263 @@
 {
-    "page": [
+    "forms": [
         {
-            "forms": [
+            "name": "fmProfile",
+            "containers": [
                 {
-                    "name": "fmProfile",
-                    "containers": [
+                    "name": "information",
+                    "class": "",
+                    "rows": [
                         {
-                            "name": "subtitle",
-                            "columns": "1",
-                            "rowClass": {},
-                            "controls": [
+                            "class": "row mb-0 d-flex justify-content-center",
+                            "columns":[
                                 {
-                                    "name": "hello",
-                                    "type": "LINK",
+                                    "name": "info",
+                                    "key": "info",
+                                    "type": "TEXTPLANE",
                                     "label": "",
+                                    "value": "Tu información",
+                                    "icon": "arrow_left",
+                                    "validators": [],
+                                    "show": true,
+                                    "classColumn": "col-md-7 col-2",
+                                    "style": {
+                                        "font-family": "Poppins",
+                                        "weigth": "400",
+                                        "font-style": "normal",
+                                        "font-weigth": "normal",
+                                        "font-size": "30px",
+                                        "line-height": "48px",
+                                        "color": "#01426A",
+                                        "flex": "none",
+                                        "order": 0,
+                                        "flex-grow": 0,
+                                        "margin": "0px",
+                                        "width":"349px"
+                                    },
+                                    "class": ""
+                                }
+                            ]
+                        },
+                        {
+                            "class": "row mb-5 mt-0 d-flex justify-content-center",
+                            "columns":[
+                                {
+                                    "name": "description",
+                                    "key": "description",
+                                    "type": "TEXTPLANE",
+                                    "label": "",
+                                    "value": "Completa la siguiente información para completar tu perfil",
+                                    "icon": "arrow_left",
+                                    "validators": [],
+                                    "show": true,
+                                    "classColumn": "col-md-7 col-2",
+                                    "style": {
+                                        "font-family": "Poppins",
+                                        "weigth": "400",
+                                        "font-style": "normal",
+                                        "font-weight": "normal",
+                                        "font-size": "18px",
+                                        "line-height": "27px",
+                                        "color": "#868686",
+                                        "flex": "none",
+                                        "order": 1,
+                                        "flex-grow": 0,
+                                        "margin": "0px",
+                                        "align-items": "center",
+                                        "width": "341px",
+                                        "height": "54px"
+                                    },
+                                    "class": ""
+                                }
+                            ]
+                        },
+                        {
+                            "class": "row d-flex justify-content-center",
+                            "columns":[
+                                {
+                                    "name": "name",
+                                    "key": "name",
+                                    "type": "INPUT",
+                                    "label": "Nombre*",
                                     "value": "",
                                     "icon": "arrow_left",
-                                    "validation": {},
+                                    "validators": [
+                                        {
+                                            "type": "required",
+                                            "message": "Campo requerido"
+                                        }
+                                    ],
                                     "show": true,
-                                    "classColumn": "col-md-2 col-2"
-                                },
+                                    "appearance": "outline",
+                                    "classColumn": "col-md-7 col-2",
+                                    "style": {
+                                        "font-family": "Poppins",
+                                        "weigth": "400",
+                                        "font-style": "normal",
+                                        "font-weigth": "normal",
+                                        "font-size": "18px",
+                                        "line-height": "27px",
+                                        "color": "#868686",
+                                        "flex": "none",
+                                        "order": 1,
+                                        "flex-grow": 0,
+                                        "margin": "0px",
+                                        "align-items": "center",
+                                        "width": "334px"
+                                    },
+                                    "class": "",
+                                    "formField": true,
+                                    "disabled": false
+                                }
+                            ]
+                        },
+                        {
+                            "class": "row d-flex justify-content-center",
+                            "columns":[
                                 {
-                                    "name": "hello",
-                                    "type": "TEXTPLANE",
-                                    "label": "",
-                                    "value": "<span>Hola! Configuremos tu perfil</span>",
-                                    "validation": {},
+                                    "name": "hobbie",
+                                    "key": "hobbie",
+                                    "type": "CHIPLIST",
+                                    "label": "Pasatiempo favorito",
+                                    "value": "",
+                                    "icon": "arrow_left",
+                                    "validators": [],
                                     "show": true,
-                                    "classColumn": "col-md-12 col-12"
-                                },
+                                    "appearance": "outline",
+                                    "classColumn": "col-md-7 col-2",
+                                    "style": {
+                                        "font-family": "Poppins",
+                                        "weigth": "400",
+                                        "font-style": "normal",
+                                        "font-weigth": "normal",
+                                        "font-size": "18px",
+                                        "line-height": "27px",
+                                        "color": "#868686",
+                                        "flex": "none",
+                                        "order": 1,
+                                        "flex-grow": 0,
+                                        "margin": "0px",
+                                        "align-items": "center",
+                                        "width": "334px"
+                                    },
+                                    "class": "",
+                                    "formField": true,
+                                    "disabled": false
+                                }
+                            ]
+                        },
+                        {
+                            "class": "row d-flex justify-content-center",
+                            "columns":[
                                 {
-                                    "name": "hello",
-                                    "type": "TEXTPLANE",
-                                    "label": "",
-                                    "value": "<span>Hola! Configuremos tu perfil</span>",
-                                    "validation": {},
+                                    "name": "birthday",
+                                    "key": "birthday",
+                                    "type": "DATEPICKER",
+                                    "label": "Cumpleaños*",
+                                    "value": "",
+                                    "icon": "arrow_left",
+                                    "validators": [
+                                        {
+                                            "type": "required",
+                                            "message": "Campo requerido"
+                                        }
+                                    ],
+                                    "show": false,
+                                    "appearance": "outline",
+                                    "classColumn": "col-md-7 col-2",
+                                    "style": {
+                                        "font-family": "Poppins",
+                                        "weigth": "400",
+                                        "font-style": "normal",
+                                        "font-weigth": "normal",
+                                        "font-size": "18px",
+                                        "line-height": "27px",
+                                        "color": "#868686",
+                                        "flex": "none",
+                                        "order": 1,
+                                        "flex-grow": 0,
+                                        "margin": "0px",
+                                        "align-items": "center",
+                                        "width": "334px"
+                                    },
+                                    "class": "",
+                                    "formField": true,
+                                    "disabled": false
+                                }
+                            ]
+                        },
+                        {
+                            "class": "row d-flex justify-content-center",
+                            "columns":[
+                                {
+                                    "name": "document",
+                                    "key": "document",
+                                    "type": "INPUT",
+                                    "label": "Documento*",
+                                    "value": "",
+                                    "icon": "arrow_left",
+                                    "validators": [
+                                        {
+                                            "type": "required",
+                                            "message": "Campo requerido"
+                                        }
+                                    ],
                                     "show": true,
-                                    "classColumn": "col-md-12 col-12"
+                                    "appearance": "outline",
+                                    "classColumn": "col-md-7 col-2",
+                                    "style": {
+                                        "font-family": "Poppins",
+                                        "weigth": "400",
+                                        "font-style": "normal",
+                                        "font-weigth": "normal",
+                                        "font-size": "18px",
+                                        "line-height": "27px",
+                                        "color": "#868686",
+                                        "flex": "none",
+                                        "order": 1,
+                                        "flex-grow": 0,
+                                        "margin": "0px",
+                                        "align-items": "center",
+                                        "width": "334px"
+                                    },
+                                    "class": "",
+                                    "formField": true,
+                                    "disabled": false
+                                }
+                            ]
+                        },
+                        {
+                            "class": "row d-flex justify-content-center mt-5",
+                            "columns":[
+                                {
+                                    "name": "continue",
+                                    "key": "continue",
+                                    "type": "BUTTON",
+                                    "label": "",
+                                    "value": "Continuar",
+                                    "icon": "arrow_left",
+                                    "validators": [],
+                                    "show": true,
+                                    "classColumn": "col-md-7 offset-md-2 col-2",
+                                    "style": {
+                                        "font-family": "Poppins",
+                                        "weigth": "400",
+                                        "font-style": "normal",
+                                        "font-weigth": "normal",
+                                        "font-size": "18px",
+                                        "line-height": "27px",
+                                        "color": "#FFFFFF",
+                                        "flex": "none",
+                                        "order": 1,
+                                        "flex-grow": 0,
+                                        "margin": "0px",
+                                        "align-items": "center",
+                                        "width": "222px",
+                                        "height": "54px",
+                                        "border-radius":"10px"
+                                    },
+                                    "class": "",
+                                    "disabled": false
                                 }
                             ]
                         }
