@@ -7,6 +7,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { ScrollingModule } from "@angular/cdk/scrolling";
 import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
+import { MomentDateModule } from '@angular/material-moment-adapter';
 
 @NgModule({
     exports: [
@@ -17,7 +18,8 @@ import { MatChipsModule } from '@angular/material/chips';
         ScrollingModule,
         MatDatepickerModule,
         MatButtonModule,
-        MatChipsModule
+        MatChipsModule,
+        MomentDateModule
     ]
 })
 export class MaterialModule {

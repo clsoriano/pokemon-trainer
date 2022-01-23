@@ -162,7 +162,7 @@
                                             "message": "Campo requerido"
                                         }
                                     ],
-                                    "show": false,
+                                    "show": true,
                                     "appearance": "outline",
                                     "classColumn": "col-md-7 col-2",
                                     "style": {
@@ -182,7 +182,8 @@
                                     },
                                     "class": "",
                                     "formField": true,
-                                    "disabled": false
+                                    "disabled": false,
+                                    "readonly": true
                                 }
                             ]
                         },

@@ -15,6 +15,7 @@
                                 [appearance]="control.appearance"
                                 [ngStyle]="control.style"
                                 [ngClass]="control.class">
+                                
                                 <mat-label>{{ control.label }}</mat-label>
 
                                 <!-- CONDITION -->
@@ -22,13 +23,20 @@
 
                                 <!-- TYPE DATEPICKER -->
                                 <ng-template #datepicker>
-                                    <input matInput [id]="control.key"
-                                        [matDatepicker]="picker"
-                                        [readonly]="control.readonly"
-                                        (click)="picker.open()"
-                                        [formControlName]="control.key">
-                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                                    <mat-datepicker #picker touchUi></mat-datepicker>
+                                    <div class="matDatepicker">
+                                        <input matInput
+                                            [id]="control.key"
+                                            [matDatepicker]="picker"
+                                            [readonly]="control.readonly"
+                                            (click)="picker.open()"
+                                            [formControlName]="control.key">
+                                        <mat-icon matSuffix matDatepickerToggleIcon>
+                                            <span class="material-icons-outlined">
+                                                calendar_today
+                                            </span>
+                                        </mat-icon>
+                                        <mat-datepicker #picker></mat-datepicker>
+                                    </div>
                                 </ng-template>
 
                                 <!-- TYPE INPUT -->
@@ -59,6 +67,10 @@
                                     </mat-chip-list>
                                 </ng-template>
                                 
+                                <mat-hint *ngIf="control.hint"> {{ control.hint }} </mat-hint>
+
+                                <mat-error></mat-error>
+
                             </mat-form-field>
                             
                             <!-- TYPE TEXTPLANE -->
