@@ -1,4 +1,6 @@
+import { PlatformLocation } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-pokeball-loading',
@@ -6,8 +8,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./pokeball-loading.component.sass']
 })
 export class PokeballLoadingComponent implements OnInit {
-
-  constructor() { }
+  
+  loadingBall!: string;
+  private baseHref!:String;
+  
+  constructor(
+    private platformLocation: PlatformLocation
+  ) { 
+    
+    this.baseHref = environment.production ? this.platformLocation.getBaseHrefFromDOM() : '';
+    this.loadingBall = `${this.baseHref}/assets/img/loading-Pokemon.gif`;
+  }
 
   ngOnInit(): void {
   }

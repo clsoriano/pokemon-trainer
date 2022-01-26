@@ -10,9 +10,11 @@ import { NotFoundComponent } from './global/components/not-found/not-found.compo
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { PokeballLoadingComponent } from './global/components/pokeball-loading/pokeball-loading.component';
 import { HeaderComponent } from './global/components/header/header.component';
-import { HttpClientModule } from '@angular/common/http';
-import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
+import { CustomHttpInterceptor } from './global/interceptors/custom.http.interceptor';
+import { PokeBallService } from './global/services/poke-ball.service';
 
 @NgModule({
   declarations: [
@@ -23,16 +25,19 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
     NotFoundComponent
   ],
   imports: [
-    ReactiveFormsModule,
     BrowserModule,
-    AppRoutingModule,
+    FormsModule,
     BrowserAnimationsModule,
+    AppRoutingModule,
     MatToolbarModule,
     HttpClientModule
   ],
   providers: [
     PokeDataService,
     PokeConfigService,
+    PokeBallService,
+    CustomHttpInterceptor,
+    DateFormatPipe,
     {
       provide: APP_INITIALIZER,
       useFactory: (service: PokeConfigService) => function() { return service.init(); },
@@ -41,6 +46,9 @@ import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
     },
     {
       provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appareance: 'fill' }
+    },
+    {
+      provide: HTTP_INTERCEPTORS, useClass: CustomHttpInterceptor, multi: true
     }
   ],
   bootstrap: [AppComponent],

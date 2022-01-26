@@ -8,18 +8,17 @@
                     "class": "",
                     "rows": [
                         {
-                            "class": "row mb-0 d-flex justify-content-center",
-                            "columns":[
+                            "class": "row mb-0",
+                            "columns": [
                                 {
                                     "name": "info",
                                     "key": "info",
                                     "type": "TEXTPLANE",
                                     "label": "",
                                     "value": "Tu información",
-                                    "icon": "arrow_left",
                                     "validators": [],
                                     "show": true,
-                                    "classColumn": "col-md-7 col-2",
+                                    "classColumn": "col-md-9 col-2 d-flex justify-content-end",
                                     "style": {
                                         "font-family": "Poppins",
                                         "weigth": "400",
@@ -32,25 +31,24 @@
                                         "order": 0,
                                         "flex-grow": 0,
                                         "margin": "0px",
-                                        "width":"349px"
+                                        "width": "349px"
                                     },
                                     "class": ""
                                 }
                             ]
                         },
                         {
-                            "class": "row mb-5 mt-0 d-flex justify-content-center",
-                            "columns":[
+                            "class": "row mb-5 mt-0",
+                            "columns": [
                                 {
                                     "name": "description",
                                     "key": "description",
                                     "type": "TEXTPLANE",
                                     "label": "",
                                     "value": "Completa la siguiente información para completar tu perfil",
-                                    "icon": "arrow_left",
                                     "validators": [],
                                     "show": true,
-                                    "classColumn": "col-md-7 col-2",
+                                    "classColumn": "col-md-9 col-2 d-flex justify-content-end",
                                     "style": {
                                         "font-family": "Poppins",
                                         "weigth": "400",
@@ -72,15 +70,14 @@
                             ]
                         },
                         {
-                            "class": "row d-flex justify-content-center",
-                            "columns":[
+                            "class": "row",
+                            "columns": [
                                 {
                                     "name": "name",
                                     "key": "name",
                                     "type": "INPUT",
-                                    "label": "Nombre*",
+                                    "label": "Nombre",
                                     "value": "",
-                                    "icon": "arrow_left",
                                     "validators": [
                                         {
                                             "type": "required",
@@ -89,7 +86,7 @@
                                     ],
                                     "show": true,
                                     "appearance": "outline",
-                                    "classColumn": "col-md-7 col-2",
+                                    "classColumn": "col-md-9 col-2 d-flex justify-content-end",
                                     "style": {
                                         "font-family": "Poppins",
                                         "weigth": "400",
@@ -112,19 +109,18 @@
                             ]
                         },
                         {
-                            "class": "row d-flex justify-content-center",
-                            "columns":[
+                            "class": "row",
+                            "columns": [
                                 {
                                     "name": "hobbie",
                                     "key": "hobbie",
                                     "type": "CHIPLIST",
                                     "label": "Pasatiempo favorito",
                                     "value": "",
-                                    "icon": "arrow_left",
                                     "validators": [],
                                     "show": true,
                                     "appearance": "outline",
-                                    "classColumn": "col-md-7 col-2",
+                                    "classColumn": "col-md-9 col-2 d-flex justify-content-end",
                                     "style": {
                                         "font-family": "Poppins",
                                         "weigth": "400",
@@ -147,24 +143,25 @@
                             ]
                         },
                         {
-                            "class": "row d-flex justify-content-center",
-                            "columns":[
+                            "class": "row",
+                            "columns": [
                                 {
                                     "name": "birthday",
                                     "key": "birthday",
                                     "type": "DATEPICKER",
-                                    "label": "Cumpleaños*",
+                                    "label": "Cumpleaños",
                                     "value": "",
-                                    "icon": "arrow_left",
+                                    "icon": "calendar_today",
+                                    "iconPosition": "matSuffix",
                                     "validators": [
                                         {
                                             "type": "required",
-                                            "message": "Campo requerido"
+                                            "message": ""
                                         }
                                     ],
                                     "show": true,
                                     "appearance": "outline",
-                                    "classColumn": "col-md-7 col-2",
+                                    "classColumn": "col-md-9 col-2 d-flex justify-content-end",
                                     "style": {
                                         "font-family": "Poppins",
                                         "weigth": "400",
@@ -183,29 +180,37 @@
                                     "class": "",
                                     "formField": true,
                                     "disabled": false,
-                                    "readonly": true
+                                    "readonly": true,
+                                    "execute": {
+                                        "clients": [
+                                            {
+                                                "onValueChange": true,
+                                                "expression": "let diff = (new Date().getFullYear() - new Date(value.format('YYYY-MM-DD')).getFullYear());if(isNaN(diff)) { control.label = 'Documento*'; return;} else if (diff >= 18) { control.label = 'DUI*'; } else { control.label = 'Carnet de Minoridad'; }"
+                                            }
+                                        ]
+                                    }
                                 }
                             ]
                         },
                         {
-                            "class": "row d-flex justify-content-center",
-                            "columns":[
+                            "class": "row",
+                            "columns": [
                                 {
                                     "name": "document",
                                     "key": "document",
                                     "type": "INPUT",
                                     "label": "Documento*",
                                     "value": "",
-                                    "icon": "arrow_left",
                                     "validators": [
                                         {
-                                            "type": "required",
-                                            "message": "Campo requerido"
+                                            "type": "old",
+                                            "message": "",
+                                            "expression": "if(values.birthday && !value) {let diff = (new Date().getFullYear() - new Date(values.birthday.format('YYYY-MM-DD')).getFullYear()); if(isNaN(diff)) { return false; } if(diff >= 18){return true;} } return !values.birthday ? true : null;"
                                         }
                                     ],
                                     "show": true,
                                     "appearance": "outline",
-                                    "classColumn": "col-md-7 col-2",
+                                    "classColumn": "col-md-9 col-2 d-flex justify-content-end",
                                     "style": {
                                         "font-family": "Poppins",
                                         "weigth": "400",
@@ -228,26 +233,24 @@
                             ]
                         },
                         {
-                            "class": "row d-flex justify-content-center mt-5",
-                            "columns":[
+                            "class": "row mt-5 p-3",
+                            "columns": [
                                 {
                                     "name": "continue",
                                     "key": "continue",
                                     "type": "BUTTON",
                                     "label": "",
                                     "value": "Continuar",
-                                    "icon": "arrow_left",
                                     "validators": [],
                                     "show": true,
-                                    "classColumn": "col-md-7 offset-md-2 col-2",
+                                    "classColumn": "col-md-9 col-2",
                                     "style": {
                                         "font-family": "Poppins",
                                         "weigth": "400",
                                         "font-style": "normal",
-                                        "font-weigth": "normal",
+                                        "font-weigth": "600",
                                         "font-size": "18px",
                                         "line-height": "27px",
-                                        "color": "#FFFFFF",
                                         "flex": "none",
                                         "order": 1,
                                         "flex-grow": 0,
@@ -255,10 +258,306 @@
                                         "align-items": "center",
                                         "width": "222px",
                                         "height": "54px",
-                                        "border-radius":"10px"
+                                        "border-radius": "10px"
+                                    },
+                                    "class": "mat-primary",
+                                    "disabled": true,
+                                    "action": "submitProfile"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "fmPokeSelected",
+            "containers": [
+                {
+                    "name": "information",
+                    "class": "",
+                    "rows": [
+                        {
+                            "class": "row mb-0 d-flex justify-content-end",
+                            "columns": [
+                                {
+                                    "name": "infoPoke",
+                                    "key": "infoPoke",
+                                    "type": "TEXTPLANE",
+                                    "label": "",
+                                    "value": "Pokémon",
+                                    "validators": [],
+                                    "show": true,
+                                    "classColumn": "col-md-10 col-2",
+                                    "style": {
+                                        "font-family": "Poppins",
+                                        "weigth": "400",
+                                        "font-style": "normal",
+                                        "font-weigth": "normal",
+                                        "font-size": "30px",
+                                        "line-height": "48px",
+                                        "color": "#01426A",
+                                        "flex": "none",
+                                        "order": 0,
+                                        "flex-grow": 0,
+                                        "margin": "0px",
+                                        "width": "349px"
+                                    },
+                                    "class": ""
+                                }
+                            ]
+                        },
+                        {
+                            "class": "row mt-0 d-flex justify-content-end",
+                            "columns": [
+                                {
+                                    "name": "description",
+                                    "key": "description",
+                                    "type": "TEXTPLANE",
+                                    "label": "",
+                                    "value": "Selecciona 3 Pokémon para que sean parte de tu equipo",
+                                    "validators": [],
+                                    "show": true,
+                                    "classColumn": "col-md-10 col-2",
+                                    "style": {
+                                        "font-family": "Poppins",
+                                        "weigth": "400",
+                                        "font-style": "normal",
+                                        "font-weight": "normal",
+                                        "font-size": "18px",
+                                        "line-height": "27px",
+                                        "color": "#868686",
+                                        "flex": "none",
+                                        "order": 1,
+                                        "flex-grow": 0,
+                                        "margin": "0px",
+                                        "align-items": "center",
+                                        "width": "521px",
+                                        "height": "54px"
+                                    },
+                                    "class": ""
+                                }
+                            ]
+                        },
+                        {
+                            "class": "row d-flex justify-content-end",
+                            "columns": [
+                                {
+                                    "name": "search",
+                                    "key": "search",
+                                    "type": "INPUT",
+                                    "label": "",
+                                    "placeholder": "Buscar por índice, nombre...",
+                                    "value": "",
+                                    "icon": "search",
+                                    "iconPosition": "matPrefix",
+                                    "validators": [],
+                                    "show": true,
+                                    "appearance": "outline",
+                                    "classColumn": "col-md-10 col-2",
+                                    "style": {
+                                        "font-family": "Poppins",
+                                        "weigth": "400",
+                                        "font-style": "normal",
+                                        "font-weigth": "normal",
+                                        "font-size": "18px",
+                                        "line-height": "27px",
+                                        "color": "rgba(0, 0, 0, 0.4)",
+                                        "flex": "none",
+                                        "order": 1,
+                                        "flex-grow": 0,
+                                        "margin": "0px",
+                                        "align-items": "center",
+                                        "width": "334px"
                                     },
                                     "class": "",
+                                    "formField": true,
                                     "disabled": false
+                                }
+                            ]
+                        },
+                        {
+                            "class": "row d-flex justify-content-end",
+                            "columns": [
+                                {
+                                    "name": "pokechip",
+                                    "key": "pokechip",
+                                    "type": "CHIPSELECTTION",
+                                    "label": "",
+                                    "placeholder": "",
+                                    "value": "",
+                                    "validators": [],
+                                    "show": true,
+                                    "appearance": "none",
+                                    "classColumn": "col-md-10 col-2",
+                                    "style": {
+                                        "font-family": "Poppins",
+                                        "weigth": "400",
+                                        "font-style": "normal",
+                                        "font-weigth": "normal",
+                                        "font-size": "18px",
+                                        "line-height": "27px",
+                                        "color": "#868686",
+                                        "flex": "none",
+                                        "order": 1,
+                                        "flex-grow": 0,
+                                        "margin": "0px",
+                                        "align-items": "center",
+                                        "width": "334px"
+                                    },
+                                    "class": "",
+                                    "formField": false,
+                                    "disabled": false
+                                }
+                            ]
+                        },
+                        {
+                            "class": "row mt-5 p-3 d-flex justify-content-center",
+                            "columns": [
+                                {
+                                    "name": "save",
+                                    "key": "save",
+                                    "type": "BUTTON",
+                                    "label": "",
+                                    "value": "Guardar",
+                                    "validators": [],
+                                    "show": true,
+                                    "classColumn": "col-md-3 col-2",
+                                    "style": {
+                                        "font-family": "Poppins",
+                                        "weigth": "400",
+                                        "font-style": "normal",
+                                        "font-weigth": "600",
+                                        "font-size": "18px",
+                                        "line-height": "27px",
+                                        "flex": "none",
+                                        "order": 1,
+                                        "flex-grow": 0,
+                                        "margin": "0px",
+                                        "align-items": "center",
+                                        "width": "222px",
+                                        "height": "54px",
+                                        "border-radius": "10px"
+                                    },
+                                    "class": "mat-primary",
+                                    "disabled": true,
+                                    "action": "submitPokemon"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "fmTrainer",
+            "containers": [
+                {
+                    "name": "information",
+                    "class": "",
+                    "rows": [
+                        {
+                            "class": "row mb-0 d-flex justify-content-end",
+                            "columns": [
+                                {
+                                    "name": "infoTrainer",
+                                    "key": "infoTrainer",
+                                    "type": "TEXTPLANE",
+                                    "label": "",
+                                    "value": "Mis Pokémon",
+                                    "validators": [],
+                                    "show": true,
+                                    "classColumn": "col-md-5 col-2 mt-2 d-flex justify-content-center",
+                                    "style": {
+                                        "font-family": "Poppins",
+                                        "weigth": "400",
+                                        "font-style": "normal",
+                                        "font-weigth": "normal",
+                                        "font-size": "30px",
+                                        "line-height": "48px",
+                                        "color": "#01426A",
+                                        "flex": "none",
+                                        "order": 0,
+                                        "flex-grow": 0,
+                                        "margin": "0px",
+                                        "width": "349px"
+                                    },
+                                    "class": ""
+                                },
+                                {
+                                    "name": "btnEdit", 
+                                    "key": "btnEdit",
+                                    "type": "BUTTON",
+                                    "label": "",
+                                    "value": "Editar",
+                                    "validators": [],
+                                    "show": true,
+                                    "classColumn": "col-md-5 col-2 m-3 d-flex justify-content-end",
+                                    "icon": "edit",
+                                    "iconPosition": "matPrefix",
+                                    "style": {
+                                        "font-family": "Poppins",
+                                        "font-style": "normal",
+                                        "font-weight": "600",
+                                        "font-size": "12px",
+                                        "line-height": "22px",
+                                        "color": "#01426A",
+                                        "flex": "none",
+                                        "order": 1,
+                                        "flex-grow": 0,
+                                        "margin": "0px",
+                                        "align-items": "center",
+                                        "width": "134px",
+                                        "height": "30px",
+                                        "border-radius": "10px",
+                                        "border": "1px solid #01426A",
+                                        "background": "transparent"
+                                    },
+                                    "class": "",
+                                    "action": "loadPokemon"
+                                }
+                            ]
+                        },
+                        {
+                            "class": "row mt-4 d-flex justify-content-end",
+                            "columns": [
+                                {
+                                    "name": "pokeswiper",
+                                    "key": "pokeswiper",
+                                    "type": "SWIPER",
+                                    "label": "",
+                                    "value": "",
+                                    "validators": [],
+                                    "show": true,
+                                    "classColumn": "col-md-11 col-2",
+                                    "style": {},
+                                    "class": "",
+                                    "options": [
+                                        {
+                                            "key": "HP",
+                                            "value": "85"
+                                        },
+                                        {
+                                            "key": "Ataque",
+                                            "value": "64"
+                                        },
+                                        {
+                                            "key": "Defensa",
+                                            "value": "77"
+                                        },
+                                        {
+                                            "key": "Ataque Especial",
+                                            "value": "65"
+                                        },
+                                        {
+                                            "key": "Defensa Especial",
+                                            "value": "77"
+                                        },
+                                        {
+                                            "key": "Velocidad",
+                                            "value": "60"
+                                        }
+                                    ]
                                 }
                             ]
                         }

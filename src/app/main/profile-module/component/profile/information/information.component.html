@@ -1,6 +1,6 @@
 <div *ngIf="showForm | async" [formGroup]="formGroup">
         
-    <ng-template ngFor let-container [ngForOf]="form.containers" let-i="index">
+    <ng-template ngFor let-container [ngForOf]="formConfig.containers" let-i="index">
         <div class="main container" [ngClass]="container.class">
             
             <ng-template ngFor let-row [ngForOf]="container.rows" let-i="index">
@@ -29,12 +29,8 @@
                                             [matDatepicker]="picker"
                                             [readonly]="control.readonly"
                                             (click)="picker.open()"
-                                            [formControlName]="control.key">
-                                        <mat-icon matSuffix matDatepickerToggleIcon>
-                                            <span class="material-icons-outlined">
-                                                calendar_today
-                                            </span>
-                                        </mat-icon>
+                                            [formControlName]="control.key"
+                                            [errorStateMatcher]="matcher">
                                         <mat-datepicker #picker></mat-datepicker>
                                     </div>
                                 </ng-template>
@@ -44,34 +40,83 @@
                                     <div *ngIf="control.type == 'INPUT' else matchip">
                                         <input matInput [id]="control.key" 
                                             [type]="control.type"
-                                            [formControlName]="control.key">
+                                            [formControlName]="control.key"
+                                            [placeholder]="control.placeholder"
+                                            [errorStateMatcher]="matcher">
                                     </div>
                                 </ng-template>
 
                                 <ng-template #matchip>
-                                    <mat-chip-list #chipList>
-                                        <mat-chip *ngFor="let hobbie of hobbies"
-                                            (removed)="removeHobbie(hobbie)">
-                                            {{ hobbie }}
-                                            <button matChipRemove>
-                                                <mat-icon>cancel</mat-icon>
-                                            </button>
-                                        </mat-chip>
-                                        <input
-                                            [placeholder]="control.placeholder"
-                                            #hobbieInput
-                                            [formControlName]="control.key"
-                                            [matChipInputFor]="chipList"
-                                            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                                            (matChipInputTokenEnd)="addHobbie($event, control.key)">
-                                    </mat-chip-list>
+                                    <div *ngIf="control.type == 'CHIPLIST'">
+                                        <mat-chip-list #chipList>
+                                            <mat-chip *ngFor="let hobbie of hobbies"
+                                                (removed)="removeHobbie(hobbie)">
+                                                {{ hobbie }}
+                                                <button matChipRemove>
+                                                    <mat-icon>cancel</mat-icon>
+                                                </button>
+                                            </mat-chip>
+                                            <input
+                                                matInput
+                                                [placeholder]="control.placeholder"
+                                                #hobbieInput
+                                                [formControlName]="control.key"
+                                                [matChipInputFor]="chipList"
+                                                [matAutocomplete]="auto"
+                                                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                                (matChipInputTokenEnd)="addHobbie($event, control.key)"
+                                                [errorStateMatcher]="matcher">
+                                        </mat-chip-list>
+    
+                                        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                                            <mat-option *ngFor="let hobbie of filteredHobbies | async" [value]="hobbie">
+                                                {{hobbie}}
+                                            </mat-option>
+                                        </mat-autocomplete>
+                                    </div>
+                                </ng-template>
+
+                                <mat-icon matSuffix *ngIf="control.icon && control.iconPosition === 'matSuffix'; else matPrefix">
+                                    <span class="material-icons-outlined">
+                                        {{ control.icon }}
+                                    </span>
+                                </mat-icon>
+
+                                <ng-template #matPrefix>
+                                    <mat-icon matPrefix *ngIf="control.icon && control.iconPosition === 'matPrefix'">
+                                        <span class="material-icons-outlined">
+                                            {{ control.icon }}
+                                        </span>
+                                    </mat-icon>
                                 </ng-template>
                                 
                                 <mat-hint *ngIf="control.hint"> {{ control.hint }} </mat-hint>
-
-                                <mat-error></mat-error>
+                                
+                                <mat-error>
+                                    {{ getErrorMessage(control, formGroup.get(control.key)) }}
+                                </mat-error>
 
                             </mat-form-field>
+ 
+                            <!-- TYPE CHIPSELECTTION -->
+                            <div *ngIf="control.type == 'CHIPSELECTTION'" >
+                                <mat-chip-list #pokemonList [id]="control.key" selectable="true">
+                                    <ng-template ngFor let-pokemon [ngForOf]="pokemons | async" let-p="index">
+                                        <div class="pokemon-chip-field"
+                                            (click)="selectedPokemon(pokemon)"
+                                            [ngClass]="pokemon.selected ? 'pokemon-selected':  (pokemonSelected.value.length === 3 ? 'pokemon-disabled' : '')">
+
+                                            <img [src]="pokemon.sprites.other.home.front_default | safeResource"
+                                                class="pokemon-image">
+                                            <mat-chip [value]="pokemon" class="pokemon-chip"
+                                                (click)="selectedPokemon(pokemon)">
+                                                #{{ pokemon.id | leftPad: '0' : 3 }} {{ pokemon.name }}
+                                            </mat-chip>
+                                            
+                                        </div>
+                                    </ng-template>
+                                </mat-chip-list>
+                            </div>
                             
                             <!-- TYPE TEXTPLANE -->
                             <div *ngIf="control.type == 'TEXTPLANE' && control.show" 
@@ -83,14 +128,66 @@
                             <!-- TYPE BUTTON -->
                             <div *ngIf="control.type == 'BUTTON' && control.show">
                                 <button mat-raised-button 
-                                    [color]="control.disabled ? 'none' : 'primary'"
                                     [ngClass]="control.class"
                                     [ngStyle]="control.style"
-                                    [disabled]="control.disabled">
+                                    [disabled]="control.disabled && !(formValid | async)"
+                                    preventDoubleClick
+                                    [debounceTime]="300"
+                                    (debounceClick)="execFn(control.action, control)">
+
+                                <mat-icon matSuffix *ngIf="control.icon && control.iconPosition === 'matSuffix'; else matPrefix">
+                                    <span class="material-icons-outlined">
+                                        {{ control.icon }}
+                                    </span>
+                                </mat-icon>
+
+                                <ng-template #matPrefix>
+                                    <mat-icon matPrefix *ngIf="control.icon && control.iconPosition === 'matPrefix'">
+                                        <span class="material-icons-outlined">
+                                            {{ control.icon }}
+                                        </span>
+                                    </mat-icon>
+                                </ng-template>
+                                
                                     {{ control.value }}
                                 </button>
                             </div>
+                            
 
+                            <!-- TYPE SWIPER <div *ngIf="control.type == 'SWIPER' && control.show">-->
+                            <div *ngIf="control.type == 'SWIPER' && control.show">
+                                <cdk-virtual-scroll-viewport appendOnly itemSize="160" class="pokemon-viewport">
+                                    <swiper
+                                        [direction]="'vertical'"
+                                        [slidesPerView]="3"
+                                        [spaceBetween]="35"
+                                        [pagination]="{
+                                            clickable: false
+                                        }"
+                                        class="swiper-class">
+                                        <ng-template swiperSlide *ngFor="let pokemon of pokemonSelected | async">
+                                            <div class="swiper-container row">
+                                                <div class="col-md-4" style="text-align: center;">
+                                                    <img class="swiper-container-image" [src]="pokemon.sprites.other.home.front_default | safeResource">
+                                                    <span class="swiper-container-label">{{ pokemon.name }}</span><br/>
+                                                    
+                                                    <span class="swiper-container-description">
+                                                        <ng-template ngFor let-slot [ngForOf]="pokemon.types" let-isLast="last">
+                                                            {{ slot.type.name }}{{ isLast ? '' : '/'}}
+                                                        </ng-template>
+                                                    </span>
+                                                </div>
+                                                <div class="col-md-8 mt-4">
+                                                    <div class="row" *ngFor="let opt of control.options">
+                                                        <div class="col-md-6 swiper-container-detail">{{ opt.key }}</div>
+                                                        <div class="col-md-6 d-flex align-self-center"><mat-progress-bar class="progress-stat" mode="determinate" [value]="opt.value"></mat-progress-bar></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </ng-template>
+                                    </swiper>
+                                </cdk-virtual-scroll-viewport>
+                            </div>
                         </div>
                     </ng-template>
 

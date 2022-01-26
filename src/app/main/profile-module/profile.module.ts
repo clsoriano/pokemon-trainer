@@ -1,3 +1,5 @@
+import { PreventDoubleClickDirective } from './../../global/directives/prevent-double-click.directive';
+import { SafeResourcePipe } from './../../global/pipes/safe-source.pipe';
 import { MaterialModule } from './../../global/material/material.module';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -9,20 +11,26 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter } from '@angular/material-moment-adapter';
+import { LeftPadPipe } from 'src/app/global/pipes/left-pad.pipe';
+import { SwiperModule } from 'swiper/angular';
 
 
 @NgModule({
   declarations: [
     ProfileComponent,
     LoadImageComponent,
-    InformationComponent
-  ],
+    InformationComponent,
+    SafeResourcePipe,
+    PreventDoubleClickDirective,
+    LeftPadPipe
+  ], 
   imports: [
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
     MaterialModule,
-    ProfileRoutingModule
+    ProfileRoutingModule,
+    SwiperModule
   ],
   exports:[
     CommonModule,

@@ -6,20 +6,33 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class PokeDataService {
 
-  private formData: BehaviorSubject<any>;
+  formData: any;
+  imageProfile: BehaviorSubject<any>;
+  private formConfig: BehaviorSubject<any>;
+  profileRegister: BehaviorSubject<Boolean>;
+  pokemonSelector: BehaviorSubject<Boolean>;
 
 
   constructor() { 
-    this.formData = new BehaviorSubject<any>({});
+    this.formConfig = new BehaviorSubject<any>({});
+    this.imageProfile = new BehaviorSubject<any>(undefined);
+    this.profileRegister = new BehaviorSubject<Boolean>(false);
+    this.pokemonSelector = new BehaviorSubject<Boolean>(false);
+    
+    this.formData = {
+      title: '¡Hola! Configuremos tu perfil',
+      subtitle: 'Queremos conocerte mejor.',
+      profile: 'Imágen perfil'
+    };
   }
 
 
-  setFormData(data: any) {
-    this.formData.next(data);
+  setFormConfig(config: any) {
+    this.formConfig.next(config);
   }
 
-  getFormData(): BehaviorSubject<any> {
-    return this.formData;
+  getFormConfig(): BehaviorSubject<any> {
+    return this.formConfig;
   }
   
 }

@@ -1,21 +1,55 @@
-<div class="main container image-profile pt-2 mt-3 mb-5">
+<div class="main container image-profile pt-2 mt-5 mb-5">
+    
     <div class="row d-flex justify-content-center mt-5">
-        <div class="col-md-7 col-2 image-label text-center">
-            <span>Im&aacute;gen perfil</span>
+        <div [ngClass]="(pokeDataService.pokemonSelector | async) ? 'col-md-7 col-2 image-label d-flex justify-content-start' : ((pokeDataService.profileRegister | async) ? 'col-md-8 col-2 image-label d-flex justify-content-center profile-name' : 'col-md-8 col-2 image-label d-flex justify-content-center')" >
+            <span>{{ (pokeDataService.profileRegister | async) ? pokeDataService.formData.name : pokeDataService.formData.profile }}</span>
+        </div>
+        <ng-template [ngIf]="pokeDataService.pokemonSelector | async">
+            <div class="col-md-4 col-2 d-flex justify-content-end">
+                <img [src]="medalTrainer">
+            </div>
+        </ng-template>
+    </div>
+
+    <div class="row d-flex justify-content-center pt-4">
+        <div class="col-md-8 col-2">
+            <img #imageProfileRef [src]="imageProfile | safeResource" class="image-profile-picture">
         </div>
     </div>
-    <div class="row d-flex justify-content-center">
-        <div class="col-md-7 col-2">
-            <div class="image-profile-picture">
-                picture
+
+    <div class="row">
+
+        <div class="col-md-12 col-2 pt-3" *ngIf="(pokeDataService.profileRegister | async) || (pokeDataService.pokemonSelector | async)">
+            <div class="profile-info">
+                <div class="row">
+                    <div class="col"><span class="profile-info-label">Pasatiempo:</span></div>
+                    <div class="col d-flex flex-row-reverse"><span class="profile-info-description">{{ pokeDataService.formData.hobbie }}</span></div>
+                </div>
+                <div class="row">
+                    <div class="col"><span class="profile-info-label">Edad:</span></div>
+                    <div class="col d-flex flex-row-reverse"><span class="profile-info-description">{{ calculateAge(pokeDataService.formData.birthday) }} a&ntilde;os</span></div>
+                </div>
+                <div class="row" *ngIf="pokeDataService.formData.document !== ''">
+                    <div class="col"><span class="profile-info-label">{{ (calculateAge(pokeDataService.formData.birthday) >= 18) ? 'DUI': 'Carnet' }}</span></div>
+                    <div class="col d-flex flex-row-reverse"><span class="profile-info-description">{{ pokeDataService.formData.document }}</span></div>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="row d-flex justify-content-center">
-        <div class="col-md-7 col-2">
-            <div class="image-profile-upload">
-                upload
-            </div>
+
+        <div class="col-md-7 col-2 pt-5" *ngIf="!(pokeDataService.profileRegister | async) && !(pokeDataService.pokemonSelector | async)">
+            <input #imageInput class="profile-hide" id="profile-img" (change)="processImage(imageInput)" multiple type="file" accept="image/*">
+            <label class="image-profile-upload" for="profile-img">
+                <div class="col"><span class="profile-label"> {{ filename }} </span></div>
+                <div class="col d-flex flex-row-reverse">
+                    <mat-icon>
+                        <span class="material-icons-outlined" [ngClass]="(fileLoaded | async) ? 'icon-red': ''">
+                            {{ (fileLoaded | async) ? 'restore_from_trash' : 'cloud_upload'}}
+                        </span>
+                    </mat-icon>
+                </div>
+            </label>
         </div>
+
     </div>
+
 </div>

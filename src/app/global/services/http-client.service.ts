@@ -24,7 +24,7 @@ export class HttpClientService {
       body,
       reportProgress: true
     };
-
+    url = url.replace(`${environment.baseUrl}`,'');
     return this.httpClient.request(method, `${environment.baseUrl}${url}`, options);
   }
 
@@ -33,9 +33,9 @@ export class HttpClientService {
   }
 
   protected mapHeaders(headers: any){
-    for (let h of headers){
-      console.log(h.key, h.value);
-      this.headers = this.headers.append(h.key, h.value);
+    for (let h in headers){
+      console.log(headers[h].key, headers[h].value);
+      this.headers = this.headers.append(headers[h].key, headers[h].value);
     }
   }
 

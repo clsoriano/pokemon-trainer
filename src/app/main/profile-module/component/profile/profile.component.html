@@ -1,19 +1,42 @@
 <div>
     <div class="row mt-3 p-4">
-        <div class="col-xs-10 col-md-10">
-            <span class="hi-profile">
-                <a class="back-link"><mat-icon>arrow_back_ios</mat-icon></a>
-                ¡Hola! Configuremos tu perfil
-            </span>
-            <span class="know-you">Queremos conocerte mejor</span>
-        </div>
+        <ng-template [ngIf]="pokeDataService.pokemonSelector | async" [ngIfElse]="profile">
+            <div class="col-xs-10 col-md-3 mt-3 profile-success d-flex justify-content-end">
+                ¡{{ pokeDataService.formData.name }}!
+            </div>
+            <div class="col-xs-10 col-md-5 pt-3 m-3">
+                <button class="btn-edit-profile">
+                    <mat-icon matPrefix>
+                        <span class="material-icons-outlined">
+                            edit
+                        </span>
+                    </mat-icon>
+                    Editar perfil
+                </button>
+            </div>
+        </ng-template>
+        <ng-template #profile>
+            <div class="col-xs-10 col-md-10">
+                <span class="hi-profile">
+                    <a class="back-link"
+                        href="#"
+                        preventDoubleClick
+                        [debounceTime]="300"
+                        (debounceClick)="backProfile()">
+                        <mat-icon>arrow_back_ios</mat-icon>
+                    </a>
+                    {{ pokeDataService.formData.title }}
+                </span>
+                <span class="know-you">{{ pokeDataService.formData.subtitle }}</span>
+            </div>
+        </ng-template>
     </div>
     <form>
-        <div class="row offset-md-1">
-            <div class="col-5 col-md-5">
+        <div class="row d-flex justify-content-center">
+            <div class="col-5 col-md-4">
                 <app-load-image></app-load-image>
             </div>
-            <div class="col-6 col-md-6">
+            <div class="col-6 col-md-7 d-flex flex-row-reverse">
                 <app-information></app-information>
             </div>
         </div>

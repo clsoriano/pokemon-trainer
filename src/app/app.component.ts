@@ -1,7 +1,5 @@
-import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-import { HttpClientService } from './global/services/http-client.service';
 import { Component } from '@angular/core';
-import { PlatformLocation } from '@angular/common';
+import { PokeBallService } from './global/services/poke-ball.service';
 
 @Component({
   selector: 'app-root',
@@ -10,4 +8,8 @@ import { PlatformLocation } from '@angular/common';
 })
 export class AppComponent {
   title = 'pokemon-trainer';
+
+  constructor(
+    public pokeBallService: PokeBallService
+  ){}
 }

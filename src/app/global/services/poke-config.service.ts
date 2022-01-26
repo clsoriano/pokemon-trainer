@@ -12,7 +12,6 @@ export class PokeConfigService {
 
   constructor(
     private httpClientService: HttpClientService,
-    private platformBrowserDynamic: PlatformLocation,
     private pokeDataService: PokeDataService
   ) { }
 
@@ -39,8 +38,7 @@ export class PokeConfigService {
 
     this.httpClientService.getConfig(fileConfig).subscribe(
       config => {
-        console.log(config);
-        this.pokeDataService.setFormData(config);
+        this.pokeDataService.setFormConfig(config);
       }
     );
   }

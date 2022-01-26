@@ -1,3 +1,4 @@
+import { PokeDataService } from './../../../../global/services/poke-data.service';
 import { environment } from './../../../../../environments/environment';
 import { HttpClientService } from './../../../../global/services/http-client.service';
 import { Component, OnInit } from '@angular/core';
@@ -10,12 +11,17 @@ import { PlatformLocation } from '@angular/common';
 })
 export class ProfileComponent implements OnInit {
 
-  private baseHref!:String;
-
   constructor(
-    private platformLocation: PlatformLocation
+    public pokeDataService: PokeDataService
   ) { }
 
   ngOnInit(): void { }
+
+
+  backProfile() {
+    if (this.pokeDataService.profileRegister.value) {
+      this.pokeDataService.profileRegister.next(false);
+    }
+  }
 
 }

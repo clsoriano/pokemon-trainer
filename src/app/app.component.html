@@ -1,3 +1,8 @@
+<ng-container *ngIf="pokeBallService.visibility | async">
+    <app-pokeball-loading class="loading-center"></app-pokeball-loading>
+</ng-container>
+
+
 <div class="fixed-top">
     <app-header></app-header>
 </div>

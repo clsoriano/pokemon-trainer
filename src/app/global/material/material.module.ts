@@ -8,6 +8,9 @@ import { ScrollingModule } from "@angular/cdk/scrolling";
 import { MatButtonModule } from '@angular/material/button';
 import { MatChipsModule } from '@angular/material/chips';
 import { MomentDateModule } from '@angular/material-moment-adapter';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatListModule } from '@angular/material/list';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
     exports: [
@@ -19,7 +22,10 @@ import { MomentDateModule } from '@angular/material-moment-adapter';
         MatDatepickerModule,
         MatButtonModule,
         MatChipsModule,
-        MomentDateModule
+        MomentDateModule,
+        MatAutocompleteModule,
+        MatListModule,
+        MatProgressBarModule
     ]
 })
 export class MaterialModule {

@@ -14,7 +14,7 @@
 // hue. Available color palettes: https://material.io/design/color/
 
 $poke-primary : (
-  900: #185a7d,
+  900: #185A7D,
   800: #23799e,
   700: #258ab1,
   600: #309dc3,
@@ -39,7 +39,7 @@ $poke-primary : (
 );
 
 $poke-secundary : (
-  900: #01426a,
+  900: #01426A,
   800: #115d89,
   700: #1c6d9a,
   600: #297eaa,
@@ -92,6 +92,8 @@ $pokemon-trainer-theme: mat.define-light-theme((
 html, body { height: 100%; }
 body { margin: 0; font-family: Poppins, "Helvetica Neue", sans-serif; }
 
+$primay: #185A7D;
+$primary-blue: #01426A;
 
 // stablish style for formField
 
@@ -105,15 +107,14 @@ body { margin: 0; font-family: Poppins, "Helvetica Neue", sans-serif; }
 }
 
 .mat-form-field-appearance-outline .mat-form-field-flex {
-  min-height: 54px!important;
-  max-height: 57.69px!important;
+  min-height: 57.69px!important;
 }
 
 .mat-form-field-infix {
   padding-top: 5px!important;
   padding-left: 18px!important;
-  padding-right: 18px!important;
 }
+
 
 .mat-form-field-appearance-outline {
   
@@ -132,11 +133,12 @@ body { margin: 0; font-family: Poppins, "Helvetica Neue", sans-serif; }
   }
 
   .mat-form-field-outline {
-    color: #E6E6E6;
+    color: #868686;
     opacity: 1;
   }
 
   .mat-form-field-label {
+    color: #454545;
     padding-left: 18px!important;
     padding-right: 18px!important;
     top: 1.3em!important;
@@ -144,18 +146,17 @@ body { margin: 0; font-family: Poppins, "Helvetica Neue", sans-serif; }
   }
 
   .mat-form-field-outline-thick {
-    color: #E6E6E6;
-    opacity: 0.87!important;
+    color: #868686;
   }
   &.mat-focused {
     .mat-form-field-outline-thick{
-      color: #01426A;
+      color: $primary-blue;
     }
     .mat-icon {
-      color: #01426A;
+      color: $primary-blue;
     }
     &.mat-accent .mat-form-field-outline-thick {
-      color: #E6E6E6;
+      color: #454545;
     }
     &.mat-warn .mat-form-field-outline-thick {
       color: #df5c5c;
@@ -177,14 +178,17 @@ body { margin: 0; font-family: Poppins, "Helvetica Neue", sans-serif; }
     }
   }
   &.mat-form-field-should-float {
+    .mat-form-field-outline {
+      color: $primary-blue;
+    }
     .mat-form-field-outline-thick  {
-      color: #01426A;
+      color: $primary-blue;
     }
     .mat-icon {
-      color: #01426A;
+      color: $primary-blue;
     }
     .mat-form-field-label {
-      color: #01426A;
+      color: $primary-blue;
       font-weight: bold!important;
       padding-left: 25px!important;
       padding-right: 25px!important;
@@ -206,3 +210,45 @@ body { margin: 0; font-family: Poppins, "Helvetica Neue", sans-serif; }
   }
 
 }
+
+
+/**
+* Autocomplete panel
+*/
+
+.mat-option {
+  border-bottom:0.5px solid #9BB8D3;
+}
+
+.mat-autocomplete-panel {
+  border-radius: 10px!important;
+  max-height: 216px;
+}
+
+.mat-autocomplete-panel-above .mat-autocomplete-panel {
+  border-radius: 10px!important;
+  border-top-right-radius: 10px!important;
+  border-top-left-radius: 10px!important;
+  box-shadow: 0px 8px 28px rgba(120, 177, 181, 0.06);
+}
+
+.mat-option-text {
+  font-size: 14px!important;
+  font-family: 'Montserrat';
+  font-weight: normal;
+  font-style: normal;
+  line-height: 175%;
+  color: $primay;
+}
+
+/*
+* Button style
+*/
+.mat-flat-button.mat-primary.mat-button-disabled, .mat-flat-button.mat-accent.mat-button-disabled, .mat-flat-button.mat-warn.mat-button-disabled, .mat-flat-button.mat-button-disabled.mat-button-disabled, .mat-raised-button.mat-primary.mat-button-disabled, .mat-raised-button.mat-accent.mat-button-disabled, .mat-raised-button.mat-warn.mat-button-disabled, .mat-raised-button.mat-button-disabled.mat-button-disabled, .mat-fab.mat-primary.mat-button-disabled, .mat-fab.mat-accent.mat-button-disabled, .mat-fab.mat-warn.mat-button-disabled, .mat-fab.mat-button-disabled.mat-button-disabled, .mat-mini-fab.mat-primary.mat-button-disabled, .mat-mini-fab.mat-accent.mat-button-disabled, .mat-mini-fab.mat-warn.mat-button-disabled, .mat-mini-fab.mat-button-disabled.mat-button-disabled {
+  color: #868686;
+}
+
+
+/**
+* search panel
+*/
