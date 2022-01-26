@@ -34,7 +34,6 @@ export class HttpClientService {
 
   protected mapHeaders(headers: any){
     for (let h in headers){
-      console.log(headers[h].key, headers[h].value);
       this.headers = this.headers.append(headers[h].key, headers[h].value);
     }
   }

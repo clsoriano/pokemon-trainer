@@ -9,7 +9,6 @@ export function CustomValidator(validator: ValidatorElement, values: any): Valid
             const tempFunc = new Function('value, values', validator.expression);
             const valTemp = tempFunc(value, values);
             val[validator.type] = valTemp;
-            console.log(valTemp, value)
             return (value && valTemp) || valTemp ? val : null;
         }
         return null;

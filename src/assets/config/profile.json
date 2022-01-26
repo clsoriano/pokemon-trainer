@@ -190,7 +190,10 @@
                                         "clients": [
                                             {
                                                 "onValueChange": true,
-                                                "expression": "let diff = (new Date().getFullYear() - new Date(value.format('YYYY-MM-DD')).getFullYear());if(isNaN(diff)) { control.label = 'Documento*'; return;} else if (diff >= 18) { control.label = 'DUI*'; control.mask = '########-#'; control.maskDirective = true; control.maxlength = 10; } else { control.label = 'Carnet de Minoridad'; delete control.mask; delete control.maskDirective; delete control.maxlength;}"
+                                                "expression": "let diff = (new Date().getFullYear() - new Date(value.format('YYYY-MM-DD')).getFullYear());if(isNaN(diff)) { control.label = 'Documento*'; return;} else if (diff >= 18) { control.label = 'DUI*'; control.mask = '########-#'; control.maskDirective = true; control.maxlength = 10; } else { control.label = 'Carnet de Minoridad'; delete control.mask; delete control.maskDirective; delete control.maxlength;}",
+                                                "controls": {
+                                                    "document":""
+                                                }
                                             }
                                         ]
                                     }

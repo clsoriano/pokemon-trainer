@@ -1,10 +1,9 @@
-import { BehaviorSubject, Subject, Observable, throwError } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { PokeDataService } from './../services/poke-data.service';
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { CustomValidator } from '../validator/custom.validator';
 import { ValidatorElement } from './validator.element';
-import * as moment from 'moment';
-import { NgZone } from '@angular/core';
+
 export class ComponentBuild {
 
   context: any = {};
@@ -45,7 +44,7 @@ export class ComponentBuild {
               group[key].valueChanges.subscribe(
                 (value: any) => {
                   if (value) {
-                    this.executeClient(value, col,  c.rows);
+                    this.executeClient(value, col,  c.rows, group);
                   }
                 }
               );
@@ -134,7 +133,7 @@ export class ComponentBuild {
     }
   }
 
-  private executeClient(value: any, config: any, controls: any) {
+  private executeClient(value: any, config: any, controls: any, group: any) {
     if (config) {
       const { execute } = config;
       
@@ -143,17 +142,26 @@ export class ComponentBuild {
         
         if (clients) {
           clients.forEach((client: any) => {
-            const { onValueChange, expression } = client;
+            const { onValueChange, expression, controls: controlsUpd } = client;
             
             if (onValueChange && expression) { // Validations on runtime with anonymous function,
               let control: any = undefined;
-
+              // controls
               controls.forEach((r: any) => {
                 if (control) return;
-                control = r.columns.find((x: any) => x.key === 'document');
+
+                for (let c in controlsUpd) {
+                  control = r.columns.find((x: any) => x.key === c);
+                }
+
               });
               
               this.customFunction(value, control, expression);
+
+              // do refresh validations using group
+              group[control.key]?.updateValueAndValidity();
+              group[control.key]?.setValue('');
+
             }
 
           });
