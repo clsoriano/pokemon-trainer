@@ -1,0 +1,33 @@
+<mat-toolbar>
+    <img [src]="pokeImage">
+    <span class="toolbar-space"></span>
+    <button class="btn-menu-profile"
+        mat-button [matMenuTriggerFor]="profile"
+        *ngIf="pokeDataService.pokemonSelector | async">
+        {{ pokeDataService.formData.name }}
+        <mat-icon matSuffix>
+            <span class="material-icons-outlined">
+                expand_more
+            </span>
+        </mat-icon>
+    </button>
+
+    <mat-menu #profile>
+        <button mat-menu-item class="btn-sub-menu-profile">
+            <mat-icon matPrefix>
+                <span class="material-icons-outlined">
+                    edit
+                </span>
+                Editar Perfil
+            </mat-icon>
+        </button>
+        <button mat-menu-item class="btn-sub-menu-profile">
+            <mat-icon matPrefix>
+                <span class="material-icons-outlined">
+                    edit
+                </span>
+                Editar Pokemon's
+            </mat-icon>
+        </button>
+    </mat-menu>
+</mat-toolbar>

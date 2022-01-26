@@ -90,7 +90,7 @@ $pokemon-trainer-theme: mat.define-light-theme((
 
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Poppins, "Helvetica Neue", sans-serif; }
+body { margin: 0; font-family: Poppins, "Helvetica Neue", sans-serif, Gotham; }
 
 $primay: #185A7D;
 $primary-blue: #01426A;
@@ -104,6 +104,25 @@ $primary-blue: #01426A;
 
 .material-icons-outlined {
   font-size: 18px!important;
+}
+
+.mat-form-field-search .mat-form-field-appearance-outline .mat-form-field-flex {
+  min-height: 36px!important;
+  height: 36px!important;
+  background: #F2F2F2;
+  border-radius: 10px;
+  font-family: Poppins;
+  font-size: 16px;
+  line-height: 21px;
+  color: rgba(0, 0, 0, 0.4);
+
+  .mat-form-field-infix {
+    line-height: 30px;
+    display: flex;
+    align-items: center;
+    margin: -10px 0px;
+    padding-left: 5px!important;
+  }
 }
 
 .mat-form-field-appearance-outline .mat-form-field-flex {

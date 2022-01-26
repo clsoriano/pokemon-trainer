@@ -19,8 +19,9 @@ export class ProfileComponent implements OnInit {
 
 
   backProfile() {
-    if (this.pokeDataService.profileRegister.value) {
+    if (this.pokeDataService.profileRegister.value || this.pokeDataService.pokemonSelector.value) {
       this.pokeDataService.profileRegister.next(false);
+      this.pokeDataService.pokemonSelector.next(false);
     }
   }
 

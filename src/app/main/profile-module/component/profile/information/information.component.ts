@@ -2,7 +2,7 @@ import { PokeDataService } from './../../../../../global/services/poke-data.serv
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { HttpClientService } from '../../../../../global/services/http-client.service';
 import { PokeBallService } from '../../../../../global/services/poke-ball.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, AbstractControl } from '@angular/forms';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import { BehaviorSubject, Observable, startWith, map, lastValueFrom } from 'rxjs';
 import { ComponentBuild } from 'src/app/global/models/component.build';
@@ -142,7 +142,6 @@ export class InformationComponent extends ComponentBuild implements OnInit, Afte
   override submitPokemon = () => {
     if (this.formGroup.valid) {
       this.pokeBallService.showPokeBallLoading();
-      this.pokeDataService.formData.profile = "Entrenador";
       this.pokeDataService.profileRegister.next(false);
       this.pokeDataService.pokemonSelector.next(true);
       this.pokemonSelected.value.sort((a, b) => parseInt(a.order) - parseInt(b.order));
@@ -155,7 +154,7 @@ export class InformationComponent extends ComponentBuild implements OnInit, Afte
     const pokemon = await lastValueFrom(result);
 
     this.pokemons?.value.push(pokemon);
-    //this.pokemons?.next(this.pokemons.value);
+    
     this.pokemons.value.sort((a, b) => parseInt(a.order) - parseInt(b.order));
 
   }
@@ -208,7 +207,7 @@ export class InformationComponent extends ComponentBuild implements OnInit, Afte
                 this.formGroup.statusChanges.subscribe(
                   status => {
                     if( status != 'PENDING') {
-                      this.formValid.next(this.formGroup.valid && this.pokeDataService.imageProfile.value !== undefined);
+                      this.formValid.next(this.formGroup.valid && this.pokemonSelected.value.length === 3);
                       this.convertValues(this.formGroup.controls);
                     }
                   }
@@ -225,6 +224,7 @@ export class InformationComponent extends ComponentBuild implements OnInit, Afte
   loadTrainer(){
     this.showForm.next(false);
     this.formValid.next(false);
+    this.pokeDataService.formData.profile = "Entrenador";
     
     if (!this.formsGroup?.contains('fmPokeSelected'))
       this.formsGroup = this.formBuilder.group({ fmProfile: this.formsGroup.get('fmProfile'), fmPokeSelected: this.formGroup });
@@ -254,6 +254,21 @@ export class InformationComponent extends ComponentBuild implements OnInit, Afte
     );
   }
 
+  handleInput(control: any, event?: any) {
+    if (control && control.controlType == 'SEARCH' && this.formGroup?.contains(control.key)) {
+      const value = this.formGroup.get(control.key)?.value;
+      
+      if(value && value.toString().trim().length > 0) {
+        this.pokemons.next([]);
+        this.findPokemonByIdOrName(`pokemon/${value.replace(/^0+/,'')}`);
+      } else {
+        this.pokemons.next([]);
+        this.loadPokemon();
+      }
+
+    }
+  }
+
   ngAfterViewInit(): void {
     this.pokeDataService.profileRegister.subscribe(
       register => {
@@ -266,7 +281,7 @@ export class InformationComponent extends ComponentBuild implements OnInit, Afte
         }
 
       }
-    )
+    );
   }
 
 }

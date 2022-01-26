@@ -13,6 +13,7 @@ import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/materia
 import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter } from '@angular/material-moment-adapter';
 import { LeftPadPipe } from 'src/app/global/pipes/left-pad.pipe';
 import { SwiperModule } from 'swiper/angular';
+import { MaskDirective } from 'src/app/global/directives/mask.directive';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { SwiperModule } from 'swiper/angular';
     InformationComponent,
     SafeResourcePipe,
     PreventDoubleClickDirective,
-    LeftPadPipe
+    LeftPadPipe,
+    MaskDirective
   ], 
   imports: [
     CommonModule,

@@ -8,13 +8,14 @@ import { DateFormatPipe } from './global/pipes/date-format.pipe';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NotFoundComponent } from './global/components/not-found/not-found.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatMenuModule } from '@angular/material/menu';
 import { PokeballLoadingComponent } from './global/components/pokeball-loading/pokeball-loading.component';
-import { HeaderComponent } from './global/components/header/header.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { CustomHttpInterceptor } from './global/interceptors/custom.http.interceptor';
 import { PokeBallService } from './global/services/poke-ball.service';
+import { HeaderComponent } from './main/header/header.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { PokeBallService } from './global/services/poke-ball.service';
     BrowserAnimationsModule,
     AppRoutingModule,
     MatToolbarModule,
-    HttpClientModule
+    HttpClientModule,
+    MatMenuModule
   ],
   providers: [
     PokeDataService,

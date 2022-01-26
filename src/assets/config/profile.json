@@ -13,7 +13,8 @@
                                 {
                                     "name": "info",
                                     "key": "info",
-                                    "type": "TEXTPLANE",
+                                    "controlType": "TEXTPLANE",
+                                    "type": "text",
                                     "label": "",
                                     "value": "Tu información",
                                     "validators": [],
@@ -43,7 +44,8 @@
                                 {
                                     "name": "description",
                                     "key": "description",
-                                    "type": "TEXTPLANE",
+                                    "controlType": "TEXTPLANE",
+                                    "type": "text",
                                     "label": "",
                                     "value": "Completa la siguiente información para completar tu perfil",
                                     "validators": [],
@@ -75,7 +77,8 @@
                                 {
                                     "name": "name",
                                     "key": "name",
-                                    "type": "INPUT",
+                                    "controlType": "INPUT",
+                                    "type": "text",
                                     "label": "Nombre",
                                     "value": "",
                                     "validators": [
@@ -114,7 +117,8 @@
                                 {
                                     "name": "hobbie",
                                     "key": "hobbie",
-                                    "type": "CHIPLIST",
+                                    "controlType": "CHIPLIST",
+                                    "type": "chip",
                                     "label": "Pasatiempo favorito",
                                     "value": "",
                                     "validators": [],
@@ -148,7 +152,8 @@
                                 {
                                     "name": "birthday",
                                     "key": "birthday",
-                                    "type": "DATEPICKER",
+                                    "controlType": "DATEPICKER",
+                                    "type": "date",
                                     "label": "Cumpleaños",
                                     "value": "",
                                     "icon": "calendar_today",
@@ -185,7 +190,7 @@
                                         "clients": [
                                             {
                                                 "onValueChange": true,
-                                                "expression": "let diff = (new Date().getFullYear() - new Date(value.format('YYYY-MM-DD')).getFullYear());if(isNaN(diff)) { control.label = 'Documento*'; return;} else if (diff >= 18) { control.label = 'DUI*'; } else { control.label = 'Carnet de Minoridad'; }"
+                                                "expression": "let diff = (new Date().getFullYear() - new Date(value.format('YYYY-MM-DD')).getFullYear());if(isNaN(diff)) { control.label = 'Documento*'; return;} else if (diff >= 18) { control.label = 'DUI*'; control.mask = '########-#'; control.maskDirective = true; control.maxlength = 10; } else { control.label = 'Carnet de Minoridad'; delete control.mask; delete control.maskDirective; delete control.maxlength;}"
                                             }
                                         ]
                                     }
@@ -198,7 +203,8 @@
                                 {
                                     "name": "document",
                                     "key": "document",
-                                    "type": "INPUT",
+                                    "controlType": "INPUT",
+                                    "type": "text",
                                     "label": "Documento*",
                                     "value": "",
                                     "validators": [
@@ -238,7 +244,8 @@
                                 {
                                     "name": "continue",
                                     "key": "continue",
-                                    "type": "BUTTON",
+                                    "controlType": "BUTTON",
+                                    "type": "button",
                                     "label": "",
                                     "value": "Continuar",
                                     "validators": [],
@@ -283,7 +290,8 @@
                                 {
                                     "name": "infoPoke",
                                     "key": "infoPoke",
-                                    "type": "TEXTPLANE",
+                                    "controlType": "TEXTPLANE",
+                                    "type": "text",
                                     "label": "",
                                     "value": "Pokémon",
                                     "validators": [],
@@ -313,7 +321,8 @@
                                 {
                                     "name": "description",
                                     "key": "description",
-                                    "type": "TEXTPLANE",
+                                    "controlType": "TEXTPLANE",
+                                    "type": "text",
                                     "label": "",
                                     "value": "Selecciona 3 Pokémon para que sean parte de tu equipo",
                                     "validators": [],
@@ -345,7 +354,8 @@
                                 {
                                     "name": "search",
                                     "key": "search",
-                                    "type": "INPUT",
+                                    "type": "text",
+                                    "controlType": "SEARCH",
                                     "label": "",
                                     "placeholder": "Buscar por índice, nombre...",
                                     "value": "",
@@ -354,7 +364,7 @@
                                     "validators": [],
                                     "show": true,
                                     "appearance": "outline",
-                                    "classColumn": "col-md-10 col-2",
+                                    "classColumn": "col-md-10 col-2 mat-form-field-search",
                                     "style": {
                                         "font-family": "Poppins",
                                         "weigth": "400",
@@ -368,7 +378,7 @@
                                         "flex-grow": 0,
                                         "margin": "0px",
                                         "align-items": "center",
-                                        "width": "334px"
+                                        "width": "521px"
                                     },
                                     "class": "",
                                     "formField": true,
@@ -382,7 +392,8 @@
                                 {
                                     "name": "pokechip",
                                     "key": "pokechip",
-                                    "type": "CHIPSELECTTION",
+                                    "controlType": "CHIPSELECTTION",
+                                    "type": "chip",
                                     "label": "",
                                     "placeholder": "",
                                     "value": "",
@@ -417,7 +428,8 @@
                                 {
                                     "name": "save",
                                     "key": "save",
-                                    "type": "BUTTON",
+                                    "controlType": "BUTTON",
+                                    "type": "button",
                                     "label": "",
                                     "value": "Guardar",
                                     "validators": [],
@@ -462,7 +474,8 @@
                                 {
                                     "name": "infoTrainer",
                                     "key": "infoTrainer",
-                                    "type": "TEXTPLANE",
+                                    "controlType": "TEXTPLANE",
+                                    "type": "text",
                                     "label": "",
                                     "value": "Mis Pokémon",
                                     "validators": [],
@@ -487,7 +500,8 @@
                                 {
                                     "name": "btnEdit", 
                                     "key": "btnEdit",
-                                    "type": "BUTTON",
+                                    "controlType": "BUTTON",
+                                    "type": "button",
                                     "label": "",
                                     "value": "Editar",
                                     "validators": [],
@@ -524,7 +538,8 @@
                                 {
                                     "name": "pokeswiper",
                                     "key": "pokeswiper",
-                                    "type": "SWIPER",
+                                    "controlType": "SWIPER",
+                                    "type": "swiper",
                                     "label": "",
                                     "value": "",
                                     "validators": [],

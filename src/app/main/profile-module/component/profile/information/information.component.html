@@ -19,7 +19,7 @@
                                 <mat-label>{{ control.label }}</mat-label>
 
                                 <!-- CONDITION -->
-                                <div *ngIf="control.type == 'DATEPICKER' then datepicker; else input"></div>
+                                <div *ngIf="control.controlType == 'DATEPICKER' then datepicker; else input"></div>
 
                                 <!-- TYPE DATEPICKER -->
                                 <ng-template #datepicker>
@@ -37,17 +37,21 @@
 
                                 <!-- TYPE INPUT -->
                                 <ng-template #input>
-                                    <div *ngIf="control.type == 'INPUT' else matchip">
+                                    <div *ngIf="(control.controlType == 'INPUT' || control.controlType == 'SEARCH') else matchip">
                                         <input matInput [id]="control.key" 
                                             [type]="control.type"
                                             [formControlName]="control.key"
                                             [placeholder]="control.placeholder"
-                                            [errorStateMatcher]="matcher">
+                                            [errorStateMatcher]="matcher"
+                                            [maxLength]="control.maxlength ? control.maxlength : 200"
+                                            maskDirective
+                                            [control]="control"
+                                            (keyup.enter)="handleInput(control, $event)">
                                     </div>
                                 </ng-template>
 
                                 <ng-template #matchip>
-                                    <div *ngIf="control.type == 'CHIPLIST'">
+                                    <div *ngIf="control.controlType == 'CHIPLIST'">
                                         <mat-chip-list #chipList>
                                             <mat-chip *ngFor="let hobbie of hobbies"
                                                 (removed)="removeHobbie(hobbie)">
@@ -76,19 +80,17 @@
                                     </div>
                                 </ng-template>
 
-                                <mat-icon matSuffix *ngIf="control.icon && control.iconPosition === 'matSuffix'; else matPrefix">
+                                <mat-icon matSuffix *ngIf="control.icon && control.iconPosition === 'matSuffix'">
                                     <span class="material-icons-outlined">
                                         {{ control.icon }}
                                     </span>
                                 </mat-icon>
 
-                                <ng-template #matPrefix>
-                                    <mat-icon matPrefix *ngIf="control.icon && control.iconPosition === 'matPrefix'">
-                                        <span class="material-icons-outlined">
-                                            {{ control.icon }}
-                                        </span>
-                                    </mat-icon>
-                                </ng-template>
+                                <mat-icon matPrefix *ngIf="control.icon && control.iconPosition === 'matPrefix'">
+                                    <span class="material-icons-outlined">
+                                        {{ control.icon }}
+                                    </span>
+                                </mat-icon>
                                 
                                 <mat-hint *ngIf="control.hint"> {{ control.hint }} </mat-hint>
                                 
@@ -99,8 +101,8 @@
                             </mat-form-field>
  
                             <!-- TYPE CHIPSELECTTION -->
-                            <div *ngIf="control.type == 'CHIPSELECTTION'" >
-                                <mat-chip-list #pokemonList [id]="control.key" selectable="true">
+                            <div *ngIf="control.controlType == 'CHIPSELECTTION'" >
+                                <mat-chip-list #pokemonList class="pokemon-list" [id]="control.key" selectable="true">
                                     <ng-template ngFor let-pokemon [ngForOf]="pokemons | async" let-p="index">
                                         <div class="pokemon-chip-field"
                                             (click)="selectedPokemon(pokemon)"
@@ -119,14 +121,14 @@
                             </div>
                             
                             <!-- TYPE TEXTPLANE -->
-                            <div *ngIf="control.type == 'TEXTPLANE' && control.show" 
+                            <div *ngIf="control.controlType == 'TEXTPLANE' && control.show" 
                                 [ngClass]="control.class"
                                 [ngStyle]="control.style">
                                 <span>{{ control.value }}</span>
                             </div>
 
                             <!-- TYPE BUTTON -->
-                            <div *ngIf="control.type == 'BUTTON' && control.show">
+                            <div *ngIf="control.controlType == 'BUTTON' && control.show">
                                 <button mat-raised-button 
                                     [ngClass]="control.class"
                                     [ngStyle]="control.style"
@@ -154,8 +156,8 @@
                             </div>
                             
 
-                            <!-- TYPE SWIPER <div *ngIf="control.type == 'SWIPER' && control.show">-->
-                            <div *ngIf="control.type == 'SWIPER' && control.show">
+                            <!-- TYPE SWIPER <div *ngIf="control.controlType == 'SWIPER' && control.show">-->
+                            <div *ngIf="control.controlType == 'SWIPER' && control.show">
                                 <cdk-virtual-scroll-viewport appendOnly itemSize="160" class="pokemon-viewport">
                                     <swiper
                                         [direction]="'vertical'"

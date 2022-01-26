@@ -5,14 +5,18 @@
                 ¡{{ pokeDataService.formData.name }}!
             </div>
             <div class="col-xs-10 col-md-5 pt-3 m-3">
-                <button class="btn-edit-profile">
+                <a class="btn-edit-profile"
+                        href="#"
+                        preventDoubleClick
+                        [debounceTime]="300"
+                        (debounceClick)="backProfile()">
                     <mat-icon matPrefix>
                         <span class="material-icons-outlined">
                             edit
                         </span>
                     </mat-icon>
                     Editar perfil
-                </button>
+                </a>
             </div>
         </ng-template>
         <ng-template #profile>
